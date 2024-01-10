@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kc.dao.UserDao">
+    <select id="findByUname" parameterType="string" resultType="User">
+        SELECT * FROM users WHERE uname=#{uname}
+    </select>
+
+    <select id="listU" resultType="User">
+        select uid,uname,utel,address,valid from users
+    </select>
+
+    <select id="searchByUname" parameterType="string" resultType="User">
+        SELECT * FROM users WHERE uname=#{uname}
+    </select>
+
+    <select id="getU" parameterType="_int" resultType="User">
+        select * from users where uid= #{uid}
+    </select>
+
+    <update id="modifyUser" parameterType="User">
+        update users set upassword=#{upassword},utel=#{utel},address=#{address} where uid= #{uid}
+    </update>
+
+
+    <select id="register" parameterType="string" resultType="User">
+        insert into users(uname,upassword,utel,address) values (#{uname},#{upassword},#{utel},#{address})
+    </select>
+
+    <!--用户的禁用-->
+    <update id="validById">
+        update users
+        set valid='禁用'
+        where uid=#{uid}
+    </update>
+    <!--用户的启用-->
+    <update id="validById2">
+        update users
+        set valid='启用'
+        where uid=#{uid}
+    </update>
+
+</mapper>

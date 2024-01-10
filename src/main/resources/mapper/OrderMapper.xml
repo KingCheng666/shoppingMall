@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kc.dao.OrderDao">
+
+    <!--用户提交订单，即订单表新增操作  -->
+    <insert id="submitOrder" parameterType="Order">
+        insert into orders (uname,id,pname,quantity,status,feedback)
+        values(#{uname},#{id},#{pname},#{quantity},#{status},#{feedback})
+    </insert>
+
+
+    <!--用户查询所有订单  -->
+    <select id="queryAllOrder" resultType="Order">
+        select * from orders where uname=#{uname}
+    </select>
+
+    <!--管理员查看所有订单  -->
+    <select id="ManageAllOrder" resultType="Order">
+        select * from orders
+    </select>
+
+    <!--模糊查询某一用户的所有订单 -->
+    <select id="queryOrderbyUsername" resultType="Order">
+        select * from orders where uname like concat('%',#{uname},'%')
+    </select>
+
+    <!--删除商品  -->
+    <delete id="deleteOrder">
+        delete from orders where oid=#{oid}
+    </delete>
+
+    <!--管理员修改订单状态-->
+    <update id="statusByOid">
+        update orders
+        set status='已发货'
+        where oid=#{oid}
+    </update>
+
+    <!-- 用户反馈订单状态 -->
+    <update id="feedbackByOid">
+        update orders
+        set feedback='已确认收货'
+        where oid=#{oid}
+    </update>
+</mapper>

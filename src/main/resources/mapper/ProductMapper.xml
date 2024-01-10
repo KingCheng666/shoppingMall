@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kc.dao.ProductDao">
+    <select id="listP" resultType="Product">
+        select * from products
+    </select>
+
+    <select id="getP" parameterType="_int" resultType="Product">
+        select * from products where id= #{id}
+    </select>
+
+    <select id="listSelectP" parameterType="string" resultType="Product">
+        select * from products WHERE type like concat('%',#{type},'%')
+    </select>
+
+    <select id="listSelectP2" parameterType="string" resultType="Product">
+        select * from products WHERE pname like concat('%',#{pname},'%')
+    </select>
+
+    <delete id="deleteP" parameterType="Product">
+        delete from products where id= #{id}
+    </delete>
+
+    <update id="modifyP" parameterType="Product">
+        update products set pname=#{pname},type=#{type},stock=#{stock},price=#{price} where id= #{id}
+    </update>
+
+    <insert id="addP" parameterType="Product">
+        insert into products(id,pname,type,stock,price,picture)
+        values(#{id},#{pname},#{type},#{stock},#{price},#{picture})
+    </insert>
+
+    <update id="updateP" parameterType="Product">
+        update products set stock=#{stock}-1 where id= #{id}
+    </update>
+
+</mapper>
